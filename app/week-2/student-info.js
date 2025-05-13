@@ -10,8 +10,9 @@ const StudentInfo = () => {
             <h2>Name: Joy Wong</h2>
             <p>
                 GitHub Repo:{' '}
-                <Link href="https://github.com/joywong1228/cprg306-assignments" target="_blank" rel="noopener noreferrer">
-                    https://github.com/joywong1228/cprg306-assignments
+                <Link href="https://github.com/joywong1228/cprg306-assignments"
+                    className="text-blue-300 hover:text-blue-800 underline transition-colors duration-200"
+                >  https://github.com/joywong1228/cprg306-assignments
                 </Link>
             </p>
         </div>
