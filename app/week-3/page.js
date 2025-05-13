@@ -9,7 +9,7 @@ export default function Page() {
             <ItemList />
 
             <br />
-            <Link href="/">Back to home</Link>
+            <Link href="/" className="hover:text-blue-400">Back to home</Link>
 
         </main>
     );
