@@ -1,0 +1,18 @@
+import React from 'react';
+import Link from 'next/link';
+import ItemList from './item-list';
+import NewItem from './new-item';
+
+export default function Page() {
+    return (
+        <main className="bg-black text-white min-h-screen p-8">
+            <h1 className="text-3xl font-bold mb-6">Shopping List</h1>
+            <NewItem />
+            <ItemList />
+
+            <br />
+            <Link href="/" className="hover:text-blue-400">Back to home</Link>
+
+        </main>
+    );
+}
