@@ -1,7 +1,7 @@
 'use client'; // Add this if you're using Next.js App Router (optional but safe)
 import React, { useState } from 'react';
 
-export default function NewItem() {
+export default function NewItem({ onAddItem }) {
     const [name, setName] = useState('');
     const [category, setCategory] = useState('Produce');
     const [quantity, setCount] = useState(1);
@@ -19,15 +19,8 @@ export default function NewItem() {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        const newItem = {
-            name,
-            category,
-            quantity
-        };
-        console.log(newItem);
-        alert(`Added Item: ${name}\nQuantity: ${quantity}\nCategory: ${category}`);
+        onAddItem({ name, category, quantity });
 
-        //reset the form
         setName('');
         setCategory('Produce');
         setCount(1);
