@@ -45,7 +45,7 @@ export default function NewItem({ onAddItem }) {
             <div className="flex space-x-4">
                 {/* quantity */}
                 <div className="bg-white text-black p-2 rounded-lg shadow-lg flex items-center justify-between w-1/2">
-                    <p className='ml-2'>{quantity}</p>
+                    <p className='ml-2 w-6 text-center'>{quantity}</p>
                     <button
                         type="button"
                         onClick={decrement}
