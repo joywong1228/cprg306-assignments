@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 export default function NewItem({ onAddItem }) {
     const [name, setName] = useState('');
-    const [category, setCategory] = useState('Produce');
+    const [category, setCategory] = useState('produce');
     const [quantity, setCount] = useState(1);
 
     const increment = () => {
@@ -67,17 +67,17 @@ export default function NewItem({ onAddItem }) {
                         onChange={(e) => setCategory(e.target.value)}
                         className="w-full px-2 py-1 justify-center text-black bg-white  h-9"
                     >
-                        <option value="Produce">Produce</option>
-                        <option value="Dairy">Dairy</option>
-                        <option value="Bakery">Bakery</option>
-                        <option value="Meat">Meat</option>
-                        <option value="Frozen Goods">Frozen Goods</option>
-                        <option value="Canned Goods">Canned Goods</option>
-                        <option value="Dry Goods">Dry Goods</option>
-                        <option value="Beverages">Beverages</option>
-                        <option value="Snacks">Snacks</option>
-                        <option value="Household">Household</option>
-                        <option value="Other">Other</option>
+                        <option value="produce">Produce</option>
+                        <option value="dairy">Dairy</option>
+                        <option value="bakery">Bakery</option>
+                        <option value="meat">Meat</option>
+                        <option value="frozen goods">Frozen Goods</option>
+                        <option value="canned goods">Canned Goods</option>
+                        <option value="dry goods">Dry Goods</option>
+                        <option value="beverages">Beverages</option>
+                        <option value="snacks">Snacks</option>
+                        <option value="household">Household</option>
+                        <option value="other">Other</option>
                     </select>
                 </div>
             </div>
