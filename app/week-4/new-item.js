@@ -19,9 +19,9 @@ export default function NewItem() {
     return (
         <div className='bg-white text-black p-2 w-45 rounded-lg shadow-lg flex items-center justify-between'>
             <p className='w-30 ml-2'>{count}</p>
-            <button onClick={decrement} className="bg-blue-500 mr-2 text-white px-4 py-2 rounded hover:bg-blue-800">
+            <button onClick={decrement} className="bg-blue-500 mr-2 text-white px-4 py-2 rounded hover:bg-blue-800  cursor-pointer">
                 -</button>
-            <button onClick={increment} className="bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-800">
+            <button onClick={increment} className="bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-800  cursor-pointer">
                 +</button>
 
         </div>

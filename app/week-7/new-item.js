@@ -51,13 +51,13 @@ export default function NewItem({ onAddItem }) {
                         onClick={decrement}
                         className={` px-4 py-2 rounded ml-9 ${quantity <= 1
                             ? 'bg-gray-300 text-gray-500'
-                            : 'bg-blue-500 text-white hover:bg-blue-800'
+                            : 'bg-blue-500 text-white hover:bg-blue-800  cursor-pointer'
                             }`}
                     >
                         -
                     </button>
                     <button type="button"
-                        onClick={increment} className="bg-blue-500 text-white px-4 py-2 rounded  hover:bg-blue-800">
+                        onClick={increment} className="bg-blue-500 text-white px-4 py-2 rounded  hover:bg-blue-800  cursor-pointer">
                         +</button>
                     {/* produce */}
                 </div>
@@ -82,7 +82,7 @@ export default function NewItem({ onAddItem }) {
                 </div>
             </div>
             <div className='flex justify-center'>
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded mt-2 hover:bg-blue-800"> Add Item</button>
+                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded mt-2 hover:bg-blue-800  cursor-pointer"> Add Item</button>
             </div>
         </form>
     );

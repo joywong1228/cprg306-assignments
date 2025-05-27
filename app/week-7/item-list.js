@@ -27,13 +27,25 @@ export default function ItemList({ items }) {
             {/* Buttons */}
             <div className="flex space-x-4 mb-4 items-center">
                 <p> Sort by:</p>
-                <button onClick={() => setSortBy('name')} className={`px-4 py-2 rounded ${sortBy === 'name' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}>
+                <button
+                    onClick={() => setSortBy('name')}
+                    className={`px-4 py-2 rounded hover:bg-amber-800 cursor-pointer ${sortBy === 'name' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black '
+                        }`}
+                >
                     Sort by Name
                 </button>
-                <button onClick={() => setSortBy('category')} className={`px-4 py-2 rounded ${sortBy === 'category' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}>
+                <button
+                    onClick={() => setSortBy('category')}
+                    className={`px-4 py-2 rounded hover:bg-amber-800 cursor-pointer ${sortBy === 'category' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'
+                        }`}
+                >
                     Sort by Category
                 </button>
-                <button onClick={() => setSortBy('group')} className={`px-4 py-2 rounded ${sortBy === 'group' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}>
+                <button
+                    onClick={() => setSortBy('group')}
+                    className={`px-4 py-2 rounded hover:bg-amber-800 cursor-pointer ${sortBy === 'group' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'
+                        }`}
+                >
                     Group by Category
                 </button>
             </div>
