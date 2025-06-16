@@ -60,18 +60,20 @@ export default function ItemList() {
                         <div key={cat}>
                             <h2 className="capitalize text-2xl font-bold mb-2">{cat}</h2>
                             <ul className="space-y-2">
-                                {groupedItems[cat].map((item) => (
-                                    <Item key={item.id} {...item} />
+                                {groupedItems[cat].map((item, index) => (
+                                    <Item key={index} {...item} />
                                 ))}
+
                             </ul>
                         </div>
                     ))}
                 </div>
             ) : (
                 <ul className="space-y-4">
-                    {sortedItems.map((item) => (
-                        <Item key={item.id} {...item} />
+                    {sortedItems.map((item, index) => (
+                        <Item key={index} {...item} />
                     ))}
+
                 </ul>
             )}
         </div>
