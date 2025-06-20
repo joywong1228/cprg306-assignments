@@ -22,7 +22,7 @@ export default function NewItem({ onAddItem }) {
         onAddItem({ name, category, quantity });
 
         setName('');
-        setCategory('Produce');
+        setCategory('produce');
         setCount(1);
     };
 
