@@ -20,4 +20,3 @@ export async function addItem(userId, item) {
     return docRef.id;
 }
 
-}

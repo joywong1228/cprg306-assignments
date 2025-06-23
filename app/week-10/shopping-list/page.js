@@ -27,7 +27,7 @@ export default function Page() {
     //  Add to Firestore
     const handleAddItem = async (item) => {
         if (!user) {
-            console.error("❌ User not logged in");
+            console.error("User not logged in");
             return;
         }
 
@@ -36,9 +36,9 @@ export default function Page() {
             const id = await addItem(user.uid, item); // <- SAVE TO CLOUD
             const newItem = { ...item, id };
             setItems(prev => [newItem, ...prev]);
-            console.log("✅ Item added with ID:", id);
+            console.log("Item added with ID:", id);
         } catch (error) {
-            console.error("🔥 Firestore addItem error:", error);
+            console.error("Firestore addItem error:", error);
         }
     };
 
