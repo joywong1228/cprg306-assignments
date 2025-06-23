@@ -22,7 +22,7 @@ export default function NewItem({ onAddItem }) {
         onAddItem({ name, category, quantity });
 
         setName('');
-        setCategory('Produce');
+        setCategory('produce');
         setCount(1);
     };
 
@@ -56,9 +56,15 @@ export default function NewItem({ onAddItem }) {
                     >
                         -
                     </button>
-                    <button type="button"
-                        onClick={increment} className="bg-blue-500 text-white px-4 py-2 rounded  hover:bg-blue-800  cursor-pointer">
-                        +</button>
+                    <button
+                        onClick={increment}
+                        className={`ml-2
+                    ${quantity >= 20
+                                ? 'bg-gray-300 mr-2 text-white px-4 py-2 rounded'
+                                : 'bg-blue-500 text-white px-4 py-2 rounded mr-2 cursor-pointer hover:bg-blue-800 '}`}
+                    >
+                        +
+                    </button>
                     {/* produce */}
                 </div>
                 <div className="bg-white text-black p-2 rounded-lg shadow-lg w-1/2">
