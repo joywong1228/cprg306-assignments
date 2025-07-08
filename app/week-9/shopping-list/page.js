@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 import Link from "next/link";
 
 import { useUserAuth } from "../_utils/auth-context";
@@ -12,13 +11,6 @@ import itemsData from "./items.json";
 
 export default function Page() {
   const { user } = useUserAuth();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (user === null) router.replace("/week-9");
-  }, [user, router]);
-
-  if (user === null) return null;
 
   const [items, setItems] = useState(
     itemsData.map((item, index) => ({ ...item, id: Date.now() + index }))
@@ -42,28 +34,35 @@ export default function Page() {
 
   return (
     <main className="bg-black text-white min-h-screen p-8">
-      <h1 className="text-3xl font-bold mb-6">Shopping List</h1>
-
-
-      <div className="flex flex-col md:flex-row gap-8">
-        <div className="md:w-1/2 space-y-6">
-          <NewItem onAddItem={handleAddItem} />
-          <ItemList items={items} onItemSelect={handleItemSelect} />
-        </div>
-
-        <div className="md:w-1/2">
-          <MealIdeas ingredient={selectedItemName} />
-        </div>
-      </div>
-
-      <br />
-      <Link href="/week-9" className="hover:text-blue-400">
-        Back to login page
-      </Link>
-      <br />
-      <Link href="/" className="hover:text-blue-400">
-        Back to home
-      </Link>
+      {!user ? (
+        <section className="flex flex-col items-center justify-center min-h-[50vh]">
+          <p className="text-2xl font-bold mb-4">You need to log in!</p>
+          <Link href="/week-9" className="hover:text-blue-400">
+            Go to login page
+          </Link>
+        </section>
+      ) : (
+        <>
+          <h1 className="text-3xl font-bold mb-6">Shopping List</h1>
+          <div className="flex flex-col md:flex-row gap-8">
+            <div className="md:w-1/2 space-y-6">
+              <NewItem onAddItem={handleAddItem} />
+              <ItemList items={items} onItemSelect={handleItemSelect} />
+            </div>
+            <div className="md:w-1/2">
+              <MealIdeas ingredient={selectedItemName} />
+            </div>
+          </div>
+          <br />
+          <Link href="/week-9" className="hover:text-blue-400">
+            Back to login page
+          </Link>
+          <br />
+          <Link href="/" className="hover:text-blue-400">
+            Back to home
+          </Link>
+        </>
+      )}
     </main>
   );
 }
