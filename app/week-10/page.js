@@ -55,7 +55,7 @@ export default function Page() {
           <br />
 
           <Link
-            href="/week-9/shopping-list"
+            href="/week-10/shopping-list"
             className="underline text-blue-400 hover:text-blue-200 transition-colors duration-300 cursor-pointer"
           >
             Go to Shopping List

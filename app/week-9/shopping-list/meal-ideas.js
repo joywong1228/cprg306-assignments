@@ -1,95 +1,111 @@
-'use client'; // Add this if you're using Next.js App Router (optional but safe)
-import React, { useState } from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
 
-export default function NewItem({ onAddItem }) {
-    const [name, setName] = useState('');
-    const [category, setCategory] = useState('produce');
-    const [quantity, setCount] = useState(1);
+// Fetch meals by ingredient
+async function fetchMealIdeas(ingredient) {
+    if (!ingredient) return [];
+    try {
+        const response = await fetch(
+            `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`
+        );
+        const data = await response.json();
+        return data.meals || [];
+    } catch (error) {
+        console.error('Failed to fetch meal ideas:', error);
+        return [];
+    }
+}
 
-    const increment = () => {
-        if (quantity < 20) {
-            setCount(quantity + 1);
+// Fetch full meal details (with ingredients)
+async function fetchMealDetails(mealId) {
+    try {
+        const response = await fetch(
+            `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
+        );
+        const data = await response.json();
+        return data.meals ? data.meals[0] : null;
+    } catch (error) {
+        console.error('Failed to fetch meal details:', error);
+        return null;
+    }
+}
+
+export default function MealIdeas({ ingredient }) {
+    const [meals, setMeals] = useState([]);
+    const [selectedMeal, setSelectedMeal] = useState(null);
+
+    // Fetch meal list on ingredient change
+    useEffect(() => {
+        async function loadMealIdeas() {
+            setSelectedMeal(null); // clear previous selection
+            const results = await fetchMealIdeas(ingredient);
+            setMeals(results);
         }
+
+        loadMealIdeas();
+    }, [ingredient]);
+
+    // Handle click on meal
+    async function handleMealClick(mealId) {
+        const mealDetails = await fetchMealDetails(mealId);
+        setSelectedMeal(mealDetails);
     }
 
-    const decrement = () => {
-        if (quantity > 1) {
-            setCount(quantity - 1);
+    // Extract ingredients from selected meal
+    function renderIngredients(meal) {
+        const ingredients = [];
+        for (let i = 1; i <= 20; i++) {
+            const ingredient = meal[`strIngredient${i}`];
+            const measure = meal[`strMeasure${i}`];
+            if (ingredient && ingredient.trim() !== '') {
+                ingredients.push(`${measure} ${ingredient}`);
+            }
         }
+        return (
+            <ul className="mt-2 list-disc list-inside text-sm text-gray-700">
+                {ingredients.map((item, idx) => (
+                    <li key={idx}>{item}</li>
+                ))}
+            </ul>
+        );
     }
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        onAddItem({ name, category, quantity });
-
-        setName('');
-        setCategory('produce');
-        setCount(1);
-    };
-
 
     return (
-        <form
-            onSubmit={handleSubmit}
-            className={`bg-gray-900 p-6 rounded-lg w-[400px] space-y-4 shadow-lg text-white mb-5`}
-        >
-            <div>
-                <input
-                    type="text"
-                    placeholder="Enter item name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="bg-white text-black w-full px-4 py-2 border rounded h-13"
-                    required
-                />
-            </div>
-            <div className="flex space-x-4">
-                {/* quantity */}
-                <div className="bg-white text-black p-2 rounded-lg shadow-lg flex items-center justify-between w-1/2">
-                    <p className='ml-2 w-6 text-center'>{quantity}</p>
-                    <button
-                        type="button"
-                        onClick={decrement}
-                        className={` px-4 py-2 rounded ml-9 ${quantity <= 1
-                            ? 'bg-gray-300 text-gray-500'
-                            : 'bg-blue-500 text-white hover:bg-blue-800  cursor-pointer'
-                            }`}
-                    >
-                        -
-                    </button>
-                    <button
-                        onClick={increment}
-                        className={`ml-2
-                    ${quantity >= 20
-                                ? 'bg-gray-300 mr-2 text-white px-4 py-2 rounded'
-                                : 'bg-blue-500 text-white px-4 py-2 rounded mr-2 cursor-pointer hover:bg-blue-800 '}`}
-                    >
-                        +
-                    </button>
-                    {/* produce */}
-                </div>
-                <div className="bg-white text-black p-2 rounded-lg shadow-lg w-1/2">
-                    <select
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}
-                        className="w-full px-2 py-1 justify-center text-black bg-white  h-9"
-                    >
-                        <option value="produce">Produce</option>
-                        <option value="dairy">Dairy</option>
-                        <option value="bakery">Bakery</option>
-                        <option value="meat">Meat</option>
-                        <option value="frozen goods">Frozen Goods</option>
-                        <option value="canned goods">Canned Goods</option>
-                        <option value="dry goods">Dry Goods</option>
-                        <option value="beverages">Beverages</option>
-                        <option value="snacks">Snacks</option>
-                        <option value="household">Household</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-            </div>
-            <div className='flex justify-center'>
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded mt-2 hover:bg-blue-800  cursor-pointer"> Add Item</button>
-            </div>
-        </form>
+        <div className="bg-white p-6 rounded-lg shadow-md w-full">
+            <h2 className="text-xl font-bold mb-4 text-gray-800">
+                Meal Ideas for: <span className="capitalize">{ingredient}</span>
+            </h2>
+
+            {meals.length === 0 ? (
+                <p className="text-gray-500 italic">No meal ideas found.</p>
+            ) : (
+                <ul className="space-y-4">
+                    {meals.map((meal) => (
+                        <li
+                            key={meal.idMeal}
+                            className="cursor-pointer p-2 rounded-md border hover:bg-gray-100"
+                            onClick={() => handleMealClick(meal.idMeal)}
+                        >
+                            <div className="flex items-center space-x-4">
+                                <img
+                                    src={meal.strMealThumb}
+                                    alt={meal.strMeal}
+                                    className="w-16 h-16 object-cover rounded"
+                                />
+                                <span className="font-medium text-gray-800">{meal.strMeal}</span>
+                            </div>
+
+                            {/* Show ingredients if this is the selected meal */}
+                            {selectedMeal?.idMeal === meal.idMeal && (
+                                <div className="ml-20 mt-2">
+                                    <h3 className="font-semibold text-gray-700">Ingredients:</h3>
+                                    {renderIngredients(selectedMeal)}
+                                </div>
+                            )}
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
     );
 }
